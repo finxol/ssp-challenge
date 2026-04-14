@@ -21,7 +21,7 @@ fn main() {
         println!("No solution found");
     } else {
         println!("Found solution!");
-        println!("Result: {:?}", result);
+        // println!("Result: {:?}", result);
     }
 
     println!("");

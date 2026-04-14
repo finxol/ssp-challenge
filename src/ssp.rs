@@ -1,20 +1,54 @@
+/// Subset Sum Problem solver.
+/// Takes the vector size, the target sum, and the vector of values.
 pub fn ssp(size: usize, target: usize, values: Vec<usize>) -> Vec<usize> {
     let mut solution = vec![false; size];
 
-    for i in 0..solution.len() {
-        if sum(&values, &solution) == target {
-            return values
-                .iter()
-                .zip(solution.iter())
-                .filter(|(_, t)| **t)
-                .map(|(v, _)| *v)
-                .collect();
-        }
+    if dfs(&values, &mut solution, target, 0, 0) {
+        finalise(values, solution)
+    } else {
+        vec![]
     }
-
-    vec![]
 }
 
+fn dfs(
+    values: &[usize],
+    solution: &mut Vec<bool>,
+    target: usize,
+    index: usize,
+    current_sum: usize,
+) -> bool {
+    if current_sum == target {
+        return true;
+    }
+    if index >= values.len() {
+        return false;
+    }
+
+    // Left branch: include values[index]
+    let new_sum = current_sum + values[index];
+    if new_sum <= target {
+        solution[index] = true;
+        if dfs(values, solution, target, index + 1, new_sum) {
+            return true;
+        }
+        solution[index] = false;
+    }
+
+    // Right branch: exclude values[index]
+    dfs(values, solution, target, index + 1, current_sum)
+}
+
+/// Format the vector to only keep the values for the solution
+fn finalise(values: Vec<usize>, solution: Vec<bool>) -> Vec<usize> {
+    values
+        .iter()
+        .zip(solution.iter())
+        .filter(|(_, t)| **t)
+        .map(|(v, _)| *v)
+        .collect()
+}
+
+/// Sum the values for the selected indices
 fn sum(values: &Vec<usize>, targets: &Vec<bool>) -> usize {
     values
         .iter()

@@ -1,7 +1,7 @@
 import random
 
 
-def generate(size, max_value=10000):
+def generate(size, max_value=1_000_000):
     values = [random.randint(1, max_value) for _ in range(size)]
 
     solvable = random.choice([True, False])
@@ -11,7 +11,7 @@ def generate(size, max_value=10000):
     else:
         target = random.randint(1, size * max_value)
 
-    filename = f"test/input-s{size}-{'solvable' if solvable else 'unknown'}.txt"
+    filename = f"test/input-{size}-{'solvable' if solvable else 'unknown'}.txt"
 
     with open(filename, "w") as f:
         f.write(f"{size}\n")
@@ -22,8 +22,8 @@ def generate(size, max_value=10000):
 
 
 if __name__ == "__main__":
-    COUNT = 10
+    COUNT = 3
 
     for i in range(COUNT):
-        SIZE = random.randint(10, 500)
+        SIZE = random.randint(1_000_000, 5_000_000)
         generate(SIZE)
