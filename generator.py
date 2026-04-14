@@ -1,10 +1,10 @@
 import random
+import time
 
 
-def generate(size, max_value=1_000_000):
+def generate(size, max_value=1_000_000, solvable=random.choice([True, False])):
+    start = time.time()
     values = [random.randint(1, max_value) for _ in range(size)]
-
-    solvable = random.choice([True, False])
 
     if solvable:
         target = sum(random.sample(values, k=random.randint(1, size)))
@@ -18,12 +18,13 @@ def generate(size, max_value=1_000_000):
         f.write(f"{target}\n")
         f.write(" ".join(str(v) for v in values) + "\n")
 
-    print(f"Generated {filename}: size={size}, target={target}")
+    elapsed = time.time() - start
+    print(f"Generated {filename}: size={size}, target={target} ({elapsed:.3f}s)")
 
 
 if __name__ == "__main__":
-    COUNT = 3
+    COUNT = 1
 
     for i in range(COUNT):
-        SIZE = random.randint(1_000_000, 5_000_000)
-        generate(SIZE)
+        SIZE = random.randint(1_000_000_000, 5_000_000_000)
+        generate(SIZE, max_value=100_000_000, solvable=False)
