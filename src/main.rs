@@ -33,6 +33,8 @@ fn solve(args: &[String]) {
         std::process::exit(1);
     }
 
+    let show_result = args.len() > 3 && args.contains(&"--show-solution".to_string());
+
     let (size, target, values) = parser::parse_input(&args[2]);
     println!("Size: {}, Target: {}", size, target);
 
@@ -46,6 +48,9 @@ fn solve(args: &[String]) {
         println!("No solution found");
     } else {
         println!("Found solution!");
+        if show_result {
+            println!("Solution: {:?}", result);
+        }
     }
 
     println!();
