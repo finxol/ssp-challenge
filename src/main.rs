@@ -58,6 +58,7 @@ fn generate(args: &[String]) {
     let mut count: usize = 1;
     let mut size: Option<usize> = None;
     let mut max_value: usize = 1_000_000;
+    let mut min_value: usize = 1;
     let mut solvable: Option<bool> = None;
 
     let mut i = 2;
@@ -75,6 +76,10 @@ fn generate(args: &[String]) {
                 i += 1;
                 max_value = args[i].parse().expect("Invalid max-value");
             }
+            "--min-value" => {
+                i += 1;
+                min_value = args[i].parse().expect("Invalid min-value");
+            }
             "--solvable" => solvable = Some(true),
             "--unsolvable" => solvable = Some(false),
             _ => {
@@ -88,6 +93,6 @@ fn generate(args: &[String]) {
     let mut rng = rand::thread_rng();
     for _ in 0..count {
         let s = size.unwrap_or_else(|| rng.gen_range(1_000_000_000..=5_000_000_000usize));
-        generator::generate(s, max_value, solvable);
+        generator::generate(s, min_value, max_value, solvable);
     }
 }

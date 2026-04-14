@@ -3,7 +3,7 @@ use std::fs;
 use std::io::{BufWriter, Write};
 use std::time::Instant;
 
-pub fn generate(size: usize, max_value: usize, solvable: Option<bool>) {
+pub fn generate(size: usize, min_value: usize, max_value: usize, solvable: Option<bool>) {
     let start = Instant::now();
     let mut rng = rand::thread_rng();
 
@@ -11,7 +11,7 @@ pub fn generate(size: usize, max_value: usize, solvable: Option<bool>) {
 
     let gen_start = Instant::now();
     let values: Vec<usize> = (0..size)
-        .map(|_| rng.gen_range(1..=max_value))
+        .map(|_| rng.gen_range(min_value..=max_value))
         .collect();
     println!("Values generated in {:.3?}", gen_start.elapsed());
 
