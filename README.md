@@ -1,5 +1,7 @@
 # Subset Sum Problem challenge
 
+**This is a possibly out-of-date mirror of [tangled.org/finxol.eu/ssp-challenge](https://tangled.org/finxol.eu/ssp-challenge)**
+
 Given a set of integers, the goal is to find a solution that sums to the target number.
 
 ## Usage
